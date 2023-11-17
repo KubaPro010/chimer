@@ -44,6 +44,6 @@ while True:
         new_hr((hr + 1) % 24, (min == 29))
         print(f"beep {hr} {min}")
     print(f"################################".replace("#", " "), end="\r")
-    print(f"{hr:02d}:{min:02d}:{sec:02d}.{(now.microsecond // 1000):03d}", end="\r")
+    print(f"{hr:02d}:{min:02d}:{sec:02d}.{(now.microsecond // 100000)}", end="\r")
 
     time.sleep(0.001)  # Sleep for a second to avoid a busy wait
