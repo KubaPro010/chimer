@@ -36,7 +36,7 @@ while True:
     hr = now.hour
     min = now.minute
     sec = now.second
-    if day == 31 and month == 12 and hr == 23 and min == 59 and sec == (30 + OFFSET):
+    if now.day == 31 and now.month == 12 and hr == 23 and min == 59 and sec == (30 + OFFSET):
         print("Happy new year, operator!")
         print(f"Time Diffrence: {get_ntp_time() - now.timestamp()}")
         print(f"################################".replace("#", " "), end="\r")
