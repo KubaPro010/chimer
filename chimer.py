@@ -36,8 +36,14 @@ while True:
     hr = now.hour
     min = now.minute
     sec = now.second
-
-    if (min == 59 and sec == (55 + OFFSET)) or (min == 29 and sec == (56 + OFFSET)):
+    if day == 31 and month == 12 and hr == 23 and min == 59 and sec == (30 + OFFSET):
+        print("Happy new year, operator!")
+        print(f"Time Diffrence: {get_ntp_time() - now.timestamp()}")
+        print(f"################################".replace("#", " "), end="\r")
+        print("beeping...",end="\r")
+        subprocess.run(f"mpg123 -o pulse -a {DEVICE} -q --mono 30sec.mp3", shell=True)
+        print(f"beep {hr} {min}")
+    elif (min == 59 and sec == (55 + OFFSET)) or (min == 29 and sec == (56 + OFFSET)):
         print(f"Time Diffrence: {get_ntp_time() - now.timestamp()}")
         print(f"################################".replace("#", " "), end="\r")
         print("beeping...",end="\r")
