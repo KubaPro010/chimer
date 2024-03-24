@@ -4,7 +4,7 @@ import subprocess
 import arrow, ntplib
 import pytz
 import sys
-DEVICE = "2"
+DEVICE = "1"
 TIMESERVER = "tempus1.gum.gov.pl" #polish goverment ntp
 COMMAND = "mpg123 -o pulse -a {} -q --mono {}"
 
@@ -70,8 +70,8 @@ while True:
         print(f"################################".replace("#", " "), end="\r")
         print("beeping...",end="\r")
         new_hr((hr + 1) % 24, (min == 29))
-        if min == 29: print(f"beep {hr} {min+1} 4 pips")
-        elif min == 0: print(f"beep {hr} {min} 5 pips")
+        if min == 29 or min == 30: print(f"beep {hr} {min+1} 4 pips")
+        elif min == 0 or min == 59: print(f"beep {hr} {min} 5 pips")
     print(f"################################".replace("#", " "), end="\r")
     print(f"{hr:02d}:{min:02d}:{sec:02d}", end="\r")
     time.sleep(0.2)
