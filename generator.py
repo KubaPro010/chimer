@@ -1,6 +1,6 @@
 from pydub import AudioSegment
 from pydub.generators import Sine
-def generate_beep(duration_ms, frequency): return Sine(frequency).to_audio_segment(duration=duration_ms)
+def generate_beep(duration_ms, frequency): return Sine(frequency).to_audio_segment(duration=duration_ms, volume=1)
 def generate_silence(duration_ms): return AudioSegment.silent(duration=duration_ms)
 ending = [
     generate_silence(900),
