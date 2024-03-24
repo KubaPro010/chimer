@@ -69,7 +69,7 @@ while True:
         print("beeping...",end="\r")
         new_hr((hr + 1) % 24, (min == 29))
         if min == 29: print(f"beep {hr} {min+1} 4 pips")
-        else min == 0: print(f"beep {hr} {min} 5 pips")
+        elif min == 0: print(f"beep {hr} {min} 5 pips")
     print(f"################################".replace("#", " "), end="\r")
     print(f"{hr:02d}:{min:02d}:{sec:02d}", end="\r")
     time.sleep(0.2)
