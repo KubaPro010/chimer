@@ -36,6 +36,8 @@ elif leapsec == 1:
     print("Today's last minute has 61 seconds.")
 elif leapsec == 2:
     print("Today's last minute has 59 seconds.")
+else:
+    print("No information about leap second from the time server.")
 print(f"Time Diffrence: {get_ntp_req(TIMESERVER).tx_time - datetime.datetime.fromtimestamp(get_time()).timestamp()}")
 while True:
     now = datetime.datetime.fromtimestamp(get_time())
