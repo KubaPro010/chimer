@@ -8,6 +8,8 @@ DEVICE = "1"
 TIMESERVER = "tempus1.gum.gov.pl" #polish goverment ntp
 COMMAND = "mpg123 -o pulse -a {} -q --mono {}"
 
+ENABLE_LEAP_SECOND = False
+
 def get_time(): return arrow.now(tz=pytz.timezone("Europe/Warsaw")).timestamp()
 
 def new_hr(hr: int, hh: bool):
@@ -29,22 +31,23 @@ else:
 print(f"Beeps should run at {55 + OFFSET} and {56 + OFFSET} (offset: {OFFSET})")
 def get_ntp_req(server): 
     return ntplib.NTPClient().request(server)
-leapsec = get_ntp_req(TIMESERVER)
-if leapsec == 0:
-    print("We have no leap seconds today.")
-elif leapsec == 1:
-    print("Today's last minute has 61 seconds.")
-elif leapsec == 2:
-    print("Today's last minute has 59 seconds.")
-else:
-    print("No information about leap second from the time server.")
+if ENABLE_LEAP_SECOND:
+    leapsec = get_ntp_req(TIMESERVER)
+    if leapsec == 0:
+        print("We have no leap seconds today.")
+    elif leapsec == 1:
+        print("Today's last minute has 61 seconds.")
+    elif leapsec == 2:
+        print("Today's last minute has 59 seconds.")
+    else:
+        print("No information about leap second from the time server.")
 print(f"Time Diffrence: {get_ntp_req(TIMESERVER).tx_time - datetime.datetime.fromtimestamp(get_time()).timestamp()}")
 while True:
     now = datetime.datetime.fromtimestamp(get_time())
     hr = now.hour
     min = now.minute
     sec = now.second
-    if hr == 0 and min == 0 and sec == 1: #new day
+    if hr == 0 and min == 0 and sec == 1 and ENABLE_LEAP_SECOND: #new day
         leapsec = get_ntp_req(TIMESERVER)
         if leapsec == 0:
             OFFSET = _OFFSET
